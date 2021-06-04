@@ -8,27 +8,18 @@ public class KhoiChuaVatPham : MonoBehaviour
     private float TocDoNay=4f;
     private bool DuocNay=true;
     private Vector3 ViTriLucDau;
-    //Các biến để gán Item (Xu, nấm, sao....)
-    public bool ChuaNam=false;
-    public bool ChuaXu=false;
-    public bool ChuaSao=false;
-    //Cho phep so luong xu hien thi
-    public int SoLuongXu=-1;
-
-
-    //Lay cap do cua Mario hien tai
+    public bool ChuaNam=false;//Biến gán item Xu
+    public bool ChuaXu=false;//Biến gán item Nấm
+    public int SoLuongXu=0;//Cho phép số lượng xu hiển thị
     GameObject Mario;
     private void Awake()
     {
         Mario=GameObject.FindGameObjectWithTag("Player");
     }
-    // Start is called before the first frame update
     void Start()
     {
         
     }
-
-    // Update is called once per frame
     void Update()
     {
         
@@ -39,25 +30,53 @@ public class KhoiChuaVatPham : MonoBehaviour
         {
             ViTriLucDau=transform.position;
             KhoiNayLen();
-            
         }
     }
+    //Làm cho khối ? nảy lên -> hiện ra vật phẩm bên trong
     void KhoiNayLen()
     {
-        if(DuocNay)
+        if(DuocNay)//Nếu khối ? được nảy lên
         {
             StartCoroutine(KhoiNay());
             DuocNay=false;
-            if(ChuaNam)
+            if(ChuaNam)//Nếu chứa nấm -> Hiện ra nấm
             {
-                NamVaHoa();
+                Nam();
             }
-            else if(ChuaXu)
+            else if(ChuaXu)//Nếu chứa xu -> Xu nảy lên
             {
                 HienThiXu();
             }
         }
     }
+    //Làm cho nấm hiện ra
+    void Nam()
+    {
+        int CapDoHienTai = Mario.GetComponent<MarioScript>().CapDo;
+        GameObject Nam = null;
+        if (CapDoHienTai == 0)
+        {
+            Nam = (GameObject)Instantiate(Resources.Load("Prefabs/NamAn"));
+        }
+        //else
+        //{
+        //    Nam=(GameObject)Instantiate(Resources.Load("Prefabs/Hoa"));
+        //}
+        Mario.GetComponent<MarioScript>().TaoAmThanh("ObjectAppear");
+        Nam.transform.SetParent(this.transform.parent);
+        Nam.transform.localPosition = new Vector2(ViTriLucDau.x, ViTriLucDau.y + 1f);
+
+    }
+    //Làm cho xu hiện ra
+    void HienThiXu()
+    {
+        GameObject DongXu = (GameObject)Instantiate(Resources.Load("Prefabs/XuNay"));
+        Mario.GetComponent<MarioScript>().TaoAmThanh("Coin");
+        DongXu.transform.SetParent(this.transform.parent);
+        DongXu.transform.localPosition = new Vector2(ViTriLucDau.x, ViTriLucDau.y + 1f);
+        StartCoroutine(XuNayLen(DongXu));
+    }
+    //Hiệu ứng khối ? nảy lên
     IEnumerator KhoiNay()
     {
         while(true)
@@ -76,31 +95,7 @@ public class KhoiChuaVatPham : MonoBehaviour
             yield return null;
         }
     }
-    void NamVaHoa(){
-        int CapDoHienTai= Mario.GetComponent<MarioScript>().CapDo;
-        GameObject Nam=null;
-        if(CapDoHienTai==0)
-        {
-            Nam=(GameObject)Instantiate(Resources.Load("Prefabs/NamAn"));
-        }
-        else
-        {
-            Nam=(GameObject)Instantiate(Resources.Load("Prefabs/Hoa"));
-        }
-        Mario.GetComponent<MarioScript>().TaoAmThanh("ObjectAppear");
-        Nam.transform.SetParent(this.transform.parent);
-        Nam.transform.localPosition = new Vector2(ViTriLucDau.x,ViTriLucDau.y + 1f);
-
-    }
-    void HienThiXu()
-    {
-        GameObject DongXu = (GameObject)Instantiate(Resources.Load("Prefabs/XuNay"));
-        Mario.GetComponent<MarioScript>().TaoAmThanh("Coin");
-        DongXu.transform.SetParent(this.transform.parent);
-        DongXu.transform.localPosition = new Vector2(ViTriLucDau.x,ViTriLucDau.y + 1f);
-        StartCoroutine(XuNayLen(DongXu));
-    }
-
+    //Hiệu ứng đồng xu nảy lên 
     IEnumerator XuNayLen(GameObject DongXu)
     {
         while(true)

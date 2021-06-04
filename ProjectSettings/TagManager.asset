@@ -24,6 +24,16 @@ TagManager:
   - killbox
   - savePoint
   - Bullet
+  - ThanhLua
+  - ThanhLua2
+  - Music
+  - ThanhLua3
+  - ThanhLua4
+  - Co
+  - CotCo
+  - ThanCotCo
+  - KhoiHoiCham
+  - LauDai
   layers:
   - Default
   - TransparentFX
