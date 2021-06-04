@@ -6,10 +6,11 @@ public class NamDocChet : MonoBehaviour
 {
     Vector2 ViTriChet;
     GameObject Mario;
+    MarioScript mario;
     // Start is called before the first frame update
     void Start()
     {
-        
+        mario = FindObjectOfType<MarioScript>();
     }
 
     // Update is called once per frame
@@ -21,20 +22,14 @@ public class NamDocChet : MonoBehaviour
     {
         if(col.collider.tag == "Player" && col.contacts[0].normal.y < 0)
         {
-            //Destroy(gameObject);
             GameObject HinhNamDocChet = (GameObject)Instantiate(Resources.Load("Prefabs/NamDocChet"));
             HinhNamDocChet.transform.localPosition = ViTriChet;
         }
-        //phan nay thua, nen check lai roi bo
-        if(col.collider.tag == "NenDat" && col.contacts[0].normal.y < 0)
+        if(col.gameObject.tag=="MaiRua" && (col.contacts[0].normal.x < 0 || col.contacts[0].normal.x > 0))
         {
-            GameObject HinhNamDocChet = (GameObject)Instantiate(Resources.Load("Prefabs/NamDocChet"));
-            HinhNamDocChet.transform.localPosition = ViTriChet;
-        }
-        if (col.gameObject.tag == "Bullet")
-        {
-            Destroy(col.gameObject);
-        }
-        
+            Destroy(gameObject);
+            PlayerHighScore.PlayerScore += 100;
+            mario.TaoAmThanh("Kick");
+        }   
     }
 }

@@ -54,9 +54,9 @@ public class PlayerHighScore : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(GameObject.FindWithTag("Music"));
         }
-        if (collision.gameObject.tag == "KhoiHoiCham")
+        if (collision.gameObject.tag == "KhoiHoiCham"&& collision.contacts[0].normal.y < 0)
         {
-            PlayerScore += 300;
+            PlayerScore += 100;
         }
     }
     void CountScore()

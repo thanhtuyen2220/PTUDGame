@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MarioScript : MonoBehaviour
 {
+    public static string Level;
     private float VanToc = 7;//Vận tốc của Mario khi di chuyển
     private float VanTocToiDa = 12f;//Vận tốc tối đa khi giữ phím Z - Chạy nhanh
     private float TocDo;//Kiểm tra trạng thái tốc độ của Mario(trong Animator)
@@ -74,7 +75,7 @@ public class MarioScript : MonoBehaviour
     //Tương tác xuyên vật thể
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "NenDat")
+        if (col.gameObject.tag == "NenDat" || col.gameObject.tag == "MaiRua" || col.gameObject.tag == "KhoiHoiCham")
         {
             DuoiDat = true;
         }
@@ -83,7 +84,7 @@ public class MarioScript : MonoBehaviour
             TaoAmThanh("Coin");
             Destroy(col.gameObject);
         }
-        if (col.gameObject.tag == "ThanhLua" || col.gameObject.tag == "ThanhLua2" || col.gameObject.tag == "ThanhLua3"|| col.gameObject.tag == "ThanhLua4")
+        if (col.gameObject.tag == "ThanhLua" || col.gameObject.tag == "ThanhLua2" || col.gameObject.tag == "ThanhLua3" || col.gameObject.tag == "ThanhLua4")
         {
             MarioDie();
         }
@@ -230,33 +231,26 @@ public class MarioScript : MonoBehaviour
         float DoTre = 0.1f;
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioNho"), 1);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioLon"), 0);
-        HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioAnHoa"), 0);
         yield return new WaitForSeconds(DoTre);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioNho"), 0);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioLon"), 1);
-        HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioAnHoa"), 0);
         yield return new WaitForSeconds(DoTre);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioNho"), 1);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioLon"), 0);
-        HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioAnHoa"), 0);
         yield return new WaitForSeconds(DoTre);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioNho"), 0);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioLon"), 1);
-        HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioAnHoa"), 0);
         yield return new WaitForSeconds(DoTre);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioNho"), 1);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioLon"), 0);
-        HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioAnHoa"), 0);
         yield return new WaitForSeconds(DoTre);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioNho"), 0);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioLon"), 1);
-        HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioAnHoa"), 0);
         yield return new WaitForSeconds(DoTre);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioNho"), 1);
         HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioLon"), 0);
-        HoatHoa.SetLayerWeight(HoatHoa.GetLayerIndex("MarioAnHoa"), 0);
         yield return new WaitForSeconds(DoTre);
 
     }
 }
-    
+

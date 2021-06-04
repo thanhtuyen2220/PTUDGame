@@ -5,23 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void QuitButtion()
+    public void QuitButton()
     {
+        UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
-        Debug.Log("Game Close");
     }
     public void EasyMode()
     {
-
+        MarioScript.Level = "Easy";
+        SceneManager.LoadScene("1-1 (Easy)");
     }
     public void HardMode()
     {
+        MarioScript.Level = "Hard";
         SceneManager.LoadScene("1-1 (Hard)");
     }
     public void PlayAgain()
     {
-        SceneManager.LoadScene("1-1 (Hard)");
+        if (MarioScript.Level == "Easy")
+        {
+            SceneManager.LoadScene("1-1 (Easy)");
+        }
+        else if(MarioScript.Level == "Hard")
+        {
+            SceneManager.LoadScene("1-1 (Hard)");
+        }
         PlayerHighScore.PlayerScore = 0;
+
     }
     public void Menu()
     {
@@ -29,7 +39,14 @@ public class MainMenu : MonoBehaviour
     }
     public void TryAgain()
     {
-        SceneManager.LoadScene("1-1 (Hard)");
+        if (MarioScript.Level == "Easy")
+        {
+            SceneManager.LoadScene("1-1 (Easy)");
+        }
+        else if (MarioScript.Level == "Hard")
+        {
+            SceneManager.LoadScene("1-1 (Hard)");
+        }
         PlayerHighScore.PlayerScore = 0;
     }
 

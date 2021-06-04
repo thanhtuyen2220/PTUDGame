@@ -5,11 +5,6 @@ using UnityEngine;
 public class RuaXanhChet : MonoBehaviour
 {
     Vector2 ViTriChet;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -23,7 +18,7 @@ public class RuaXanhChet : MonoBehaviour
             Destroy(gameObject);
             GameObject HinhRuaXanhChet = (GameObject)Instantiate(Resources.Load("Prefabs/RuaXanhChet"));
             HinhRuaXanhChet.transform.localPosition = ViTriChet;
-            
+           
         }
-    }
+    }    
 }

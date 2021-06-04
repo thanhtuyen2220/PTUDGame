@@ -5,44 +5,39 @@ using UnityEngine;
 public class KeThuScript : MonoBehaviour
 {
     GameObject Mario;
+    public bool invincible = false;
     private void Awake()
     {
-        Mario=GameObject.FindGameObjectWithTag("Player");
+        Mario = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Player" && (collision.contacts[0].normal.x > 0 || collision.contacts[0].normal.x < 0))
+        if (!invincible)
         {
-            if (Mario.GetComponent<MarioScript>().CapDo > 0)
+            if (collision.collider.tag == "Player" && (collision.contacts[0].normal.x > 0 || collision.contacts[0].normal.x < 0 || collision.contacts[0].normal.y > 0))
             {
-                switch (Mario.GetComponent<MarioScript>().CapDo)
+                if (Mario.GetComponent<MarioScript>().CapDo > 0)
                 {
-                    case 1:
-                        {
-                            Mario.GetComponent<MarioScript>().CapDo -= 1;
-                            Mario.GetComponent<MarioScript>().BienHinh = true;
-                            break;
-                        }
-                    case 2:
-                        {
-                            Mario.GetComponent<MarioScript>().CapDo -= 2;
-                            Mario.GetComponent<MarioScript>().BienHinh = true;
-                            break;
-                        }
-                    case 3:
-                        {
-                            Mario.GetComponent<MarioScript>().CapDo -= 3;
-                            Mario.GetComponent<MarioScript>().BienHinh = true;
-                            break;
-                        }
-                    default: Mario.GetComponent<MarioScript>().BienHinh = false; break;
+                    if (Mario.GetComponent<MarioScript>().CapDo == 1)
+                    {
+                        invincible = true;
+                        Mario.GetComponent<MarioScript>().CapDo -= 1;
+                        Mario.GetComponent<MarioScript>().BienHinh = true;
+                        Invoke("ResetInvulnerability", 2f);
+                    }
                 }
-            }
-            else
-            {
-                Mario.GetComponent<MarioScript>().MarioDie();
+                else
+                {
+                    Mario.GetComponent<MarioScript>().MarioDie();
+                }
             }
         }
     }
+    public void ResetInvulnerability()
+    {
+        invincible = false;
+    }
+
+
 }

@@ -6,7 +6,7 @@ public class VatDiChuyenDuoc : MonoBehaviour
 {
     public float VanTocVat;
     public bool DiChuyenTrai = true;
-    
+
     private void FixedUpdate()
     {
         Vector2 DiChuyen=transform.localPosition;
